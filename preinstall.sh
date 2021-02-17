@@ -57,15 +57,15 @@ sgdisk -c 3:"ROOT"    ${DISK}
 # make filesystems
 echo -e "\nCreating Filesystems...\n"
 
-mkfs.fat -F32 "${DISK}1"
-mkswap "${DISK}2"
-mkfs.btrfs -L "ROOT" "${DISK}3"
+mkfs.fat -F32 "${DISK}p1"
+mkswap "${DISK}p2"
+mkfs.btrfs -L "ROOT" "${DISK}p3"
 
 # enable swap
 swapon "${DISK}2"
 
 # prepare subvolumes
-mount "${DISK}3" /mnt
+mount "${DISK}p3" /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@snapshots
@@ -73,12 +73,12 @@ btrfs subvolume create /mnt/@var_log
 umount /mnt
 
 # mount target
-mount -o noatime,compress=lzo,space_cache=v2,subvol=@ "${DISK3}" /mnt
+mount -o noatime,compress=lzo,space_cache=v2,subvol=@ "${DISK}p3" /mnt
 mkdir -p /mnt/{boot,home,.snapshots,var_log}
-mount "${DISK}1" /mnt/boot
-mount -o noatime,compress=lzo,space_cache=v2,subvol=@home "${DISK3}" /mnt/home
-mount -o noatime,compress=lzo,space_cache=v2,subvol=@snapshots "${DISK3}" /mnt/.snapshots
-mount -o noatime,compress=lzo,space_cache=v2,subvol=@var_log "${DISK3}" /mnt/var_log
+mount "${DISK}p1" /mnt/boot
+mount -o noatime,compress=lzo,space_cache=v2,subvol=@home "${DISK}p3" /mnt/home
+mount -o noatime,compress=lzo,space_cache=v2,subvol=@snapshots "${DISK}p3" /mnt/.snapshots
+mount -o noatime,compress=lzo,space_cache=v2,subvol=@var_log "${DISK}p3" /mnt/var_log
 
 echo "------------------------------------------------------------------------"
 echo "Arch Install on Main Drive"
@@ -95,7 +95,7 @@ cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
-options root=${DISK}1 rw
+options root=${DISK}p3 rw
 EOF
 
 echo "------------------------------------------------------------------------"
