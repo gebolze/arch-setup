@@ -17,14 +17,13 @@ echo "------------------------------------------------------------------------"
 echo "Setting up mirrors for optimal download - EU only"
 echo "------------------------------------------------------------------------"
 timedatectl set-ntp true
-pacman -Syy
 pacman -S --noconfirm pacman-contrib
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d'  | rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
 pacman -Syy
 
 echo -e "\nInstalling prereqs...\n"
-pacman -S --noconfirm gptfdisk btrfs-progs
+pacman -S --noconfirm gptfdisk btrfs-progs glibc
 
 echo "------------------------------------------------------------------------"
 echo "Select your disk to format"
@@ -63,7 +62,7 @@ mkswap "${DISK}p2"
 mkfs.btrfs -L "ROOT" "${DISK}p3"
 
 # enable swap
-swapon "${DISK}2"
+swapon "${DISK}p2"
 
 # prepare subvolumes
 mount "${DISK}p3" /mnt
@@ -96,7 +95,7 @@ cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
-options root=${DISK}p3 rw
+options root=${DISK}p3 rootflags=subvol=@ rw
 EOF
 
 echo "------------------------------------------------------------------------"
