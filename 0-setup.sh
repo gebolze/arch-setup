@@ -55,7 +55,7 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 timedatectl --no-ask-password set-timezone Europe/Berlin
 timedatectl --no-ask-password set-ntp 1
-localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_COLLATE="" LC_TIME="en_US.UTF-8"
+localectl --no-ask-password set-locale en_US.UTF-8
 
 # set keymaps
 localectl --no-ask-password set-keymap de-latin1
