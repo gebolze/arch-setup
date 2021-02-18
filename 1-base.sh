@@ -44,7 +44,7 @@ PKGS=(
         'dialog'                    # Enables shell scripts to trigger dialog boxes
         'openvpn'                   # Open VPN support
         'networkmanager-openvpn'    # Open VPN plugin for NM
-        'networkmanager-applet'     # System try icon/utility for network connectivity
+        'network-manager-applet'     # System try icon/utility for network connectivity
         'libsecret'                 # Library for storing passwords
 
     # --- Audio
