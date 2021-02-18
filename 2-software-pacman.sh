@@ -111,7 +111,7 @@ PKGS=(
     # --- Productivity
 
     'hunspell'              # Spellcheck libraries
-    'hunspell-en'           # English spellcheck library
+    'hunspell-en_US'        # English spellcheck library
     'hunspell-de'           # German spellcheck library
     'xpdf'                  # PDF viewer
 )
