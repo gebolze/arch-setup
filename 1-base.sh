@@ -18,14 +18,13 @@ echo -e "\nInstalling Base System\n"
 PKGS=(
 
     # --- XORG Display Rendering
-        'xorg'          # Base Package
-        'xorg-drivers'  # Display Drivers
+        'nvidia'
+        'nvidia-utils'
         'xterm'         # Terminal for TTY
         'xorg-server'   # XOrg server
         'xorg-apps'     # XOrg apps group
         'xorg-xinit'    # XOrg init
         'xorg-xinput'   # XOrg xinput
-        'mesa'          # Open Source version of OpenGL
 
     # --- Setup Desktop
         'awesome'               # Awesome Desktop
