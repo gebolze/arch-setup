@@ -32,7 +32,7 @@ PKGS=(
         'rofi'                  # Menu System
         'picom'                 # Translucent Windows
         'xclip'                 # System clipboard
-        'gnome-polkit'          # Elevated Applications
+        'polkit-gnome'          # Elevated Applications
         'lxappearance'          # Set System Themes
 
     # --- Login Display Manager
