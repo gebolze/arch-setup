@@ -53,7 +53,7 @@ PKGS=(
         'pulseaudio'        # Pluse Audio sound components
         'pulseaudio-alsa'   # ALSA configuration for pulse audio
         'pavucontrol'       # Pulse Audio volume control
-        'pnmixer'           # System tray volume control
+        'pamixer'           # System tray volume control
     
     # --- Bluetooth
         'bluez'                 # Daemons for the bluetooth protocol stack
