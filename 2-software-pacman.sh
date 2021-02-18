@@ -44,7 +44,7 @@ PKGS=(
     'unrar'                 # RAR compression program
     'unzip'                 # Zip compression program
     'wget'                  # Remote content retrieval
-    'terminator'            # Terminal emulator
+    'alacritty'             # Terminal emulator
     'vim'                   # Terminal editor
     'zenity'                # Display graphical dialog boxes via shell scripts
     'zip'                   # Zip compression program
