@@ -42,7 +42,7 @@ PKGS=(
     'lightdm-webkit-theme-aether'   # Lightdm Login Theme - https://github.com/NoiSek/Aether#installation
     'materia-gtk-theme'             # Desktop Theme
     'papirus-icon-theme'            # Desktop Icons
-    'capitain-cursors'              # Cursor Themes
+    'capitaine-cursors'             # Cursor Themes
 )
 
 cd ${HOME}/yay
