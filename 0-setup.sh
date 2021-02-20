@@ -13,29 +13,12 @@
 #
 # ------------------------------------------------------------------------
 
-if ! source install.conf; then
-    read -p "Please enter hostname:" hostname
-    read -p "Please enter username:" username
-    read -sp "Please enter password:" password; echo ""
-    read -sp "Please repeat password:" password2; echo ""
-
-    # check that both passwords match
-    if [ "$password" != "$password2" ]; then
-        echo "Passwords do not match"
-        exit 1
-    fi
-
-    printf "hostname=$hostname\n" >> install.conf
-    printf "username=$username\n" >> install.conf
-    printf "password=$password\n" >> install.conf
-fi
-
 echo "------------------------------------------------------------------------"
 echo "Setting up mirrors for optimal downloads - Germany Only"
 echo "------------------------------------------------------------------------"
 pacman -S --noconfirm pacman-contrib curl
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d'  | rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
+curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
 
 echo "------------------------------------------------------------------------"
 echo "Setup makepkg.conf"

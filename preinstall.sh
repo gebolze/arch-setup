@@ -74,43 +74,26 @@ umount /mnt
 
 # mount target
 mount -o noatime,compress=lzo,space_cache=v2,subvol=@ "${DISK}p3" /mnt
-mkdir -p /mnt/{boot,home,.snapshots,var_log}
+mkdir -p /mnt/{boot,home,.snapshots,var/log}
 mount "${DISK}p1" /mnt/boot
 mount -o noatime,compress=lzo,space_cache=v2,subvol=@home "${DISK}p3" /mnt/home
 mount -o noatime,compress=lzo,space_cache=v2,subvol=@snapshots "${DISK}p3" /mnt/.snapshots
-mount -o noatime,compress=lzo,space_cache=v2,subvol=@var_log "${DISK}p3" /mnt/var_log
+mount -o noatime,compress=lzo,space_cache=v2,subvol=@var_log "${DISK}p3" /mnt/var/log
 
 echo "------------------------------------------------------------------------"
 echo "Arch Install on Main Drive"
 echo "------------------------------------------------------------------------"
 pacstrap /mnt base base-devel linux linux-firmware amd-ucode --noconfirm --needed
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
 
 echo "------------------------------------------------------------------------"
-echo "Bootloader Systemd Installation"
+echo "Copying install scripts"
 echo "------------------------------------------------------------------------"
-bootctl install
-cat <<EOF > /boot/loader/entries/arch.conf
-title Arch Linux
-linux /vmlinuz-linux
-initrd /initramfs-linux.img
-options root=${DISK}p3 rootflags=subvol=@ rw
-EOF
+mkdir -p /mnt/scripts
+cp *.sh /mnt/scripts/*
 
-echo "------------------------------------------------------------------------"
-echo "Network Setup"
-echo "------------------------------------------------------------------------"
-pacman -S networkmanager dhclient --noconfirm --needed
-systemctl enable --now NetworkManager
+arch-chroot /mnt /scripts/post-chroot.sh
 
-echo "------------------------------------------------------------------------"
-echo "Set Password For Root"
-echo "------------------------------------------------------------------------"
-echo "Enter password for root user: "
-passwd root
-
-exit
 umount -R /mnt
 
 echo "------------------------------------------------------------------------"
