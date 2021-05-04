@@ -31,11 +31,12 @@ PKGS=(
     # --- Media
 
     'screenkey'             # Screencast your keypreses
-    'lbry-app-bin'          # LBRY Linux Application
+    'pnmixer'               # Systray pulse audio mixer
 
     # --- Communication
 
-    'brave-nightly-bin'     # Brave
+    'brave-bin'             # Brave
+    'slack-desktop'         # Slack
 
     # --- Themes
 

@@ -16,6 +16,28 @@
 echo -e "\nFINAL SETUP AND CONFIGURATION"
 
 # ------------------------------------------------------------------------
+echo -e "\nAdding nvidia modules to initramfs"
+sudo sed -i 's/MODULES=\(/MODULES=\(nvidia nvidia_modeset nvidia_uvm nvidia_drm/g' /etc/mkinitcpio.conf
+
+echo -e "\nAdding pacman hook for nvidia driver"
+sudo cat <<EOF > /etc/pacman.d/hooks/nvidia.hook
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+Target=linux
+Target=linux-lts
+# Change the linux part above and in the Exec line if a different kernel is used
+
+[Action]
+Description=Update Nvidia module in initcpio
+Depends=mkinitcpio
+When=PostTransaction
+NeedsTargets
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+EOF
 
 echo -e "\nGenerating .xinitrc file"
 
@@ -58,7 +80,7 @@ sudo sed -i 's|xserverauth=\$HOME/.serverauth.\$\$|xserverauth=$XAUTHORITY|g' /b
 
 # ------------------------------------------------------------------------
 
-echo -e "\nConfiguring LTS kernal as a secondary boot option"
+echo -e "\nConfiguring LTS kernel as a secondary boot option"
 
 sudo cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf
 sudo sed -i 's|Arch Linux|Arch Linux LTS Kernel|g' /boot/loader/entries/arch-lts.conf

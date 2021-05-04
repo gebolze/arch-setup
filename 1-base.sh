@@ -18,9 +18,8 @@ echo -e "\nInstalling Base System\n"
 PKGS=(
 
     # --- XORG Display Rendering
-        'nvidia'
+        'nvidia'        # NVIDIA drivers
         'nvidia-utils'
-        'xterm'         # Terminal for TTY
         'xorg-server'   # XOrg server
         'xorg-apps'     # XOrg apps group
         'xorg-xinit'    # XOrg init
@@ -53,7 +52,6 @@ PKGS=(
         'pulseaudio'        # Pluse Audio sound components
         'pulseaudio-alsa'   # ALSA configuration for pulse audio
         'pavucontrol'       # Pulse Audio volume control
-        'pamixer'           # System tray volume control
     
     # --- Bluetooth
         'bluez'                 # Daemons for the bluetooth protocol stack

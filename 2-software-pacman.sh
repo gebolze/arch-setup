@@ -40,7 +40,6 @@ PKGS=(
     'rsync'                 # Remote file sync utility
     'speedtest-cli'         # Internet speed via terminal
     'terminus-font'         # Font package with some bigger fonts for login terminal
-    'tlp'                   # Advanced laptop power management
     'unrar'                 # RAR compression program
     'unzip'                 # Zip compression program
     'wget'                  # Remote content retrieval
@@ -48,13 +47,11 @@ PKGS=(
     'vim'                   # Terminal editor
     'zenity'                # Display graphical dialog boxes via shell scripts
     'zip'                   # Zip compression program
-    'zsh'                   # ZSH sheel
+    'zsh'                   # ZSH shell
     'zsh-completions'       # Tab completions for ZSH
 
     # --- Disk Utilities
 
-    'android-tools'         # ADB for Android
-    'android-file-transfer' # Android File Transfer
     'autofs'                # Auto-mounter
     'btrfs-progs'           # BTRFS Support
     'dosfstools'            # DOS Support
@@ -77,35 +74,18 @@ PKGS=(
     'libvncserver'          # VNC Connections
     'nautilus'              # Filesystem browser
     'remmina'               # Remote Connections
-    'veracrypt'             # Disk encryption utility
     'variety'               # Wallpaper changes
 
     # --- Development
 
-    'gedit'                 # Text editor
-    'clang'                 # C Lang compiler
-    'cmake'                 # Cross-platform open-source make system
-    'code'                  # Visual Studio Code
-    'electron'              # Cross-platform development using javascript
     'git'                   # Version control system
-    'gcc'                   # C/C++ compiler
-    'glibc'                 # C libraries
-    'meld'                  # File/directory comparison
-    'nodejs'                # Javascript runtime environment
-    'npm'                   # Node package manager
-    'python'                # Scripting language
-    'yarn'                  # Dependency management (hyper needs this)
 
     # --- Media
 
-    'kdenlive'              # Movie Render
     'obs-studio'            # Record your screen
-    'celluloid'             # video player
 
     # --- Graphics and Design
 
-    'gcolor2'               # Colorpicker
-    'gimp'                  # GNU Image Manipulation Program
     'ristretto'             # Multi image viewer
 
     # --- Productivity
