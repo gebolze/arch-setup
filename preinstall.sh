@@ -90,7 +90,7 @@ echo "------------------------------------------------------------------------"
 echo "Copying install scripts"
 echo "------------------------------------------------------------------------"
 mkdir -p /mnt/scripts
-cp *.sh /mnt/scripts/*
+cp *.sh /mnt/scripts/
 
 arch-chroot /mnt /scripts/post-chroot.sh
 
