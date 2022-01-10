@@ -1,0 +1,21 @@
+# --- Utilities
+#  i3lock-fancy
+#  synology-drive
+#  freeoffice
+
+# --- Media
+#  screenkey
+#  pnmixer
+
+# --- Browser
+#  brave-bin
+
+# --- Communication
+  slack-desktop
+#  webex-bin
+
+# --- Themes
+#  lightdm-webkit-theme-aether
+#  materia-gtk-theme
+#  papirus-icon-theme
+#  capitaine-cursors
