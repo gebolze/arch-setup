@@ -1,0 +1,101 @@
+# --- System
+  linux-lts
+
+# --- Terminal utilities
+  bash-completion
+  curl
+  htop
+  ntp
+  openssh
+  p7zip
+  terminus-font
+  unrar
+  unzip
+  zip
+  zsh
+  zsh-completions
+
+# --- XORG Display Rendering
+  nvidia
+  nvidia-utils
+  xorg-server
+  xorg-apps
+  xorg-xinit
+  xorg-xinput
+
+# --- Setup Desktop
+  rofi
+  picom
+  xclip
+
+# --- Login manager
+  lightdm
+  lightdm-webkit2-greeter
+
+# --- Network Setup
+  dialog
+  openvpn
+  networkmanager-openvpn
+  network-manager-applet
+  libsecret
+
+# --- Audio
+  alsa-utils
+  alsa-plugins
+  pulseaudio
+  pulseaudio-alsa
+  pavucontrol
+
+# --- Bluetooth
+#  bluez
+#  bluez-utils
+#  bluez-firmware
+#  blueberry
+#  pulseaudio-bluetooth
+
+# --- Printers
+#  cups
+#  cups-pdf
+#  ghostscript
+#  gsfonts
+#  system-config-Printers
+
+# --- Disk utilities
+#  autofs
+  btrfs-progs
+  dosfstools
+  exfat-utils
+#  gparted
+#  gvfs-mtp
+#  gvfs-smb
+#  nautilus-share
+#  ntfs-3g
+#  parted
+#  samba
+#  smartmontools
+#  smbclient
+#  xfsprogs
+
+# --- General utilities
+  alacritty
+  flameshot
+ # freerdp
+ # libvncserver
+ # nautilus
+ # remmina
+ # variety
+
+# --- Development
+  git
+
+# --- Media
+#  obs-studio
+
+# --- Graphics and Design
+#  ristretto
+
+# --- Productivity
+#  hunspell
+#  hunspell-en_US
+#  hunspell-de
+#  xpdf
