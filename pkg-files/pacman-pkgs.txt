@@ -5,15 +5,7 @@
   bash-completion
   curl
   htop
-  ntp
   openssh
-  p7zip
-  terminus-font
-  unrar
-  unzip
-  zip
-  zsh
-  zsh-completions
 
 # --- XORG Display Rendering
   nvidia
@@ -24,26 +16,19 @@
   xorg-xinput
 
 # --- Setup Desktop
-  rofi
   picom
-  xclip
 
 # --- Login manager
   lightdm
   lightdm-webkit2-greeter
 
 # --- Network Setup
-  dialog
-  openvpn
-  networkmanager-openvpn
+  ppp
+  network-manager-sstp
   network-manager-applet
-  libsecret
 
 # --- Audio
-  alsa-utils
-  alsa-plugins
   pulseaudio
-  pulseaudio-alsa
   pavucontrol
 
 # --- Bluetooth
@@ -79,11 +64,14 @@
 # --- General utilities
   alacritty
   flameshot
- # freerdp
+  freerdp
  # libvncserver
  # nautilus
- # remmina
+   remmina
  # variety
+
+# --- Browser
+  firefox
 
 # --- Development
   git

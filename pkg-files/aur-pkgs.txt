@@ -7,12 +7,9 @@
 #  screenkey
 #  pnmixer
 
-# --- Browser
-#  brave-bin
-
 # --- Communication
   slack-desktop
-#  webex-bin
+  webex-bin
 
 # --- Themes
 #  lightdm-webkit-theme-aether
