@@ -76,14 +76,15 @@ if [[ "${FS}" == "btrfs" ]]; then
     mkfs.btrfs -L "ROOT" $root_partition -f
     mount -t btrfs $root_partition /mnt
     btrfs subvolume create /mnt/@
-    btrfs subvolume create /mnt/@snapshots
+    btrfs subvolume create /mnt/@home
+    btrfs subvolume create /mnt/@.snapshots
     btrfs subvolume create /mnt/@var_log
     umount /mnt
 
     mount -o ${mountoptions},subvol=@ ${root_partition} /mnt
     mkdir -p /mnt/{boot,home,.snapshots,var/log}
     mount -o ${mountoptions},subvol=@home ${root_partition} /mnt/home
-    mount -o ${mountoptions},subvol=@snapshots ${root_partition} /mnt/.snapshots
+    mount -o ${mountoptions},subvol=@.snapshots ${root_partition} /mnt/.snapshots
     mount -o ${mountoptions},subvol=@var_log ${root_partition} /mnt/var/log
 elif [[ "${FS}" == "ext4" ]]; then
     mkfs.ext4 -L "ROOT" $root_partition
