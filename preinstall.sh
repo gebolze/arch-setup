@@ -40,7 +40,7 @@ sgdisk -Z ${DISK}
 sgdisk -a 2048 -o ${DISK}
 
 # create partitions
-sgdisk -n 1:0:+300M ${DISK}
+sgdisk -n 1:0:+500M ${DISK}
 sgdisk -n 2:0:+2G   ${DISK}
 sgdisk -n 3:0:0     ${DISK}
 
