@@ -17,7 +17,7 @@ echo "------------------------------------------------------------------------"
 echo "Setting up mirrors for optimal download - EU only"
 echo "------------------------------------------------------------------------"
 timedatectl set-ntp true
-pacman -S --noconfirm pacman-contrib
+pacman -Sy --noconfirm pacman-contrib
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d'  | rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
 pacman -Syy
