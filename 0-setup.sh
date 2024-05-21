@@ -27,7 +27,7 @@ nc=$(grep -c ^processor /proc/cpuinfo)
 echo "You have $nc cores."
 sudo sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$nc"/g' /etc/makepkg.conf
 echo "Changing the compression for $nc cores."
-sudo sed -i 's/COMPRESSXZ=(xz -c -)/COMPRESSZX=(xz -c -T $nc -z -)/'
+sudo sed -i 's/COMPRESSXZ=(xz -c -)/COMPRESSXZ=(xz -c -T $nc -z -)/'
 
 echo "------------------------------------------------------------------------"
 echo "Setup Language to US and set locale"
