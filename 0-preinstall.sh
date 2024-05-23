@@ -100,7 +100,7 @@ pacstrap /mnt base base-devel linux linux-firmware --noconfirm --needed
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "------------------------------------------------------------------------"
-echo "Copying install scripts"
+echo "Copying install scripts & pacman mirrors for optimal downloads"
 echo "------------------------------------------------------------------------"
 cp -R ${SCRIPT_DIR} /mnt/root/archmatic
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist

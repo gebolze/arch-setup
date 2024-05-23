@@ -1,5 +1,5 @@
 # --- System
-  linux-lts
+  linux
 
 # --- Terminal utilities
   bash-completion
@@ -8,8 +8,6 @@
   openssh
 
 # --- XORG Display Rendering
-  nvidia
-  nvidia-utils
   xorg-server
   xorg-apps
   xorg-xinit

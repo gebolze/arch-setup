@@ -106,31 +106,30 @@ echo "Installing Graphics Drivers"
 echo "------------------------------------------------------------------------"
 gpu_type=$(lspci)
 if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
-    echo "Installing nvidia driver"
-    pacman -S nvidia --noconfirm --needed
+    echo "Installing nvidia open source driver"
+    pacman -S nvidia-open --noconfirm --needed
 
     echo "Adding nvidia modules to initramfs"
     sed -i 's/MODULES=\(/MODULES=\(nvidia nvidia_modeset nvidia_uvm nvidia_drm/g' /etc/mkinitcpio.conf
     mkinitcpio -P
 
     echo "Adding pacman hook for nvidia driver"
+    mkdir -p /etc/pacman.d/hooks
     cat <<EOF > /etc/pacman.d/hooks/nvidia.hook
 [Trigger]
 Operation=Install
 Operation=Upgrade
 Operation=Remove
 Type=Package
-Target=nvidia
+Target=nvidia-open
 Target=linux
-Target=linux-lts
-# Change the linux part above and in the Exec line if a different kernel is used
 
 [Action]
 Description=Update Nvidia module in initcpio
 Depends=mkinitcpio
 When=PostTransaction
 NeedsTargets
-Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux*) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 EOF
 elif lspci | grep 'VGA' | grep -E "Radeon|AMD"; then
     pacman -S xf86-video-amdgpu --noconfirm --needed
@@ -154,15 +153,7 @@ title Arch Linux
 linux /vmlinuz-linux
 initrd /${proc_ucode}
 initrd /initramfs-linux.img
-options root=${root_partition} rootflags=subvol=@ nvidia-drm.modeset=1 rw
-EOF
-
-cat << EOF > /boot/loader/entries/arch-lts.conf
-title Arch Linux LTS
-linux /vmlinuz-linux-lts
-initrd /${proc_ucode}
-initrd /initramfs-linux-lts.img
-options root=${root_partition} rootflags=subvol=@ nvidia-drm.modeset=1 rw
+options root=${root_partition} rootflags=subvol=@ nvidia_drm.modeset=1 nvida_drm.fbdev=1 rw
 EOF
 
 
