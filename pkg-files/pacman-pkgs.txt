@@ -19,6 +19,8 @@
 
 # --- Audio / Multimedia
   pipewire
+  pipewire-pulse
+  wireplumber
 
 # --- General utilities
   alacritty
