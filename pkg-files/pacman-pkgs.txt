@@ -6,6 +6,9 @@
   htop
   openssh
 
+# --- editor
+  vim
+
 # --- Disk utilities
   btrfs-progs
   dosfstools
