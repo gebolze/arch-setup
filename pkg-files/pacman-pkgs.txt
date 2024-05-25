@@ -26,6 +26,7 @@
 
 # --- General utilities
   alacritty
+  chezmoi
   flameshot
   freerdp
   remmina
