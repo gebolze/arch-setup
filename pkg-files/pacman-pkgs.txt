@@ -16,6 +16,8 @@
 
 # --- Wayland
   hyprland
+  xdg-desktop-portal-hyprland
+  xdg-desktop-portal-gtk
 
 # --- Audio / Multimedia
   pipewire
