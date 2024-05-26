@@ -22,6 +22,7 @@
   xdg-desktop-portal-gtk
 
 # --- Audio / Multimedia
+  libva-nvidia-driver
   pipewire
   pipewire-pulse
   wireplumber
