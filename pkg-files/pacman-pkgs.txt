@@ -16,6 +16,8 @@
 
 # --- Wayland
   hyprland
+  ttf-jetbrains-mono-nerd
+  waybar
   xdg-desktop-portal-hyprland
   xdg-desktop-portal-gtk
 
