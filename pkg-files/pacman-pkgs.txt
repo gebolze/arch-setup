@@ -6,7 +6,8 @@
   htop
   openssh
 
-# --- editor
+# --- editors
+  code
   vim
 
 # --- Disk utilities
