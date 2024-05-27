@@ -18,6 +18,7 @@
   hyprland
   ttf-jetbrains-mono-nerd
   waybar
+  wl-clipboard
   xdg-desktop-portal-hyprland
   xdg-desktop-portal-gtk
 
@@ -33,6 +34,9 @@
   flameshot
   freerdp
   remmina
+
+# --- Password Management
+  keepassxc
 
 # --- Browser
   firefox
