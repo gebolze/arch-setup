@@ -17,6 +17,7 @@
 
 # --- Wayland
   hyprland
+  mako
   ttf-jetbrains-mono-nerd
   waybar
   wl-clipboard
