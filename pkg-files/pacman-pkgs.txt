@@ -18,6 +18,7 @@
 # --- Wayland
   hyprland
   mako
+  noto-fonts-emoji
   ttf-jetbrains-mono-nerd
   waybar
   wl-clipboard
