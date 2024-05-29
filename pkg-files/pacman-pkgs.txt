@@ -20,6 +20,7 @@
   ttf-jetbrains-mono-nerd
   waybar
   wl-clipboard
+  wofi
   xdg-desktop-portal-hyprland
   xdg-desktop-portal-gtk
 
