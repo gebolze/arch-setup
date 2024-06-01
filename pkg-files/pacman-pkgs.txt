@@ -20,6 +20,7 @@
   mako
   noto-fonts-emoji
   ttf-jetbrains-mono-nerd
+  swaylock
   waybar
   wl-clipboard
   wofi

@@ -1,3 +1,4 @@
 # --- Communication
   slack-desktop
   webex-bin
+  wlogout
