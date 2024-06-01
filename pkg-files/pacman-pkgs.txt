@@ -32,9 +32,15 @@
   pipewire-pulse
   wireplumber
 
+# --- File Manager
+  gvfs
+  thunar
+  thunar-archive-plugin
+
 # --- General utilities
   alacritty
   chezmoi
+  file-roller
   freerdp
   remmina
 
