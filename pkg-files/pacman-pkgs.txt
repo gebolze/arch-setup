@@ -53,3 +53,7 @@
 # --- Development
   git
   starship
+
+# --- Themes
+  gnome-themes-extra
+  papirus-icon-theme
