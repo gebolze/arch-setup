@@ -26,6 +26,9 @@
   xdg-desktop-portal-hyprland
   xdg-desktop-portal-gtk
 
+# --- Display Manager
+  sddm
+
 # --- Audio / Multimedia
   libva-nvidia-driver
   pipewire
