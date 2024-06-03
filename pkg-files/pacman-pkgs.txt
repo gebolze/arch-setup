@@ -44,6 +44,7 @@
   alacritty
   chezmoi
   file-roller
+  flatpak
   freerdp
   remmina
 
