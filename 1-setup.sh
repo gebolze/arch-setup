@@ -106,8 +106,8 @@ echo "Installing Graphics Drivers"
 echo "------------------------------------------------------------------------"
 gpu_type=$(lspci)
 if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
-    echo "Installing nvidia open source driver"
-    pacman -S nvidia-open --noconfirm --needed
+    echo "Installing nvidia driver"
+    pacman -S nvidia --noconfirm --needed
 
     echo "Adding nvidia modules to initramfs"
     sed -i 's/MODULES=\(/MODULES=\(nvidia nvidia_modeset nvidia_uvm nvidia_drm/g' /etc/mkinitcpio.conf
@@ -121,7 +121,7 @@ Operation=Install
 Operation=Upgrade
 Operation=Remove
 Type=Package
-Target=nvidia-open
+Target=nvidia
 Target=linux
 
 [Action]
