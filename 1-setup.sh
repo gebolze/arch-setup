@@ -156,6 +156,10 @@ initrd /initramfs-linux.img
 options root=${root_partition} rootflags=subvol=@ nvidia_drm.modeset=1 nvida_drm.fbdev=1 rw
 EOF
 
+echo "------------------------------------------------------------------------"
+echo "Enabling weekly filesystem TRIM"
+echo "------------------------------------------------------------------------"
+systemctl enable fstrim.timer
 
 echo "------------------------------------------------------------------------"
 echo "Adding user"
