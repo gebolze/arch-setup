@@ -8,7 +8,7 @@
 
 # --- editors
   code
-  vim
+  neovim
 
 # --- Disk utilities
   btrfs-progs
