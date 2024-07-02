@@ -49,7 +49,7 @@ sgdisk -Z ${DISK}           # zap all on disk
 sgdisk -a 2048 -o ${DISK}   # new gpt disk 2048 alignment
 
 # create partitions
-sgdisk -n 1::+500M -typecode=1:ef00 --change-name=1:'UEFISYS' ${DISK}
+sgdisk -n 1::+1G -typecode=1:ef00 --change-name=1:'UEFISYS' ${DISK}
 sgdisk -n 2::+32G  -typecode=2:8200 --change-name=2:'SWAP' ${DISK}
 sgdisk -n 3::-0    -typecode=3:8300 --change-name=3:'ROOT' ${DISK}
 
@@ -69,9 +69,6 @@ fi
 
 mkfs.vfat -F32 -n "EFIBOOT" ${sys_partition}
 
-mkswap $swap_partition
-swapon $swap_partition
-
 if [[ "${FS}" == "btrfs" ]]; then
     mkfs.btrfs -L "ROOT" $root_partition -f
     mount -t btrfs $root_partition /mnt
@@ -79,6 +76,10 @@ if [[ "${FS}" == "btrfs" ]]; then
     btrfs subvolume create /mnt/@home
     btrfs subvolume create /mnt/@.snapshots
     btrfs subvolume create /mnt/@var_log
+    if [[ "${swaptype}" == "file" ]]; then
+        btrfs subvolume create /mnt/@swap
+    fi
+
     umount /mnt
 
     mount -o ${mountoptions},subvol=@ ${root_partition} /mnt
@@ -86,9 +87,25 @@ if [[ "${FS}" == "btrfs" ]]; then
     mount -o ${mountoptions},subvol=@home ${root_partition} /mnt/home
     mount -o ${mountoptions},subvol=@.snapshots ${root_partition} /mnt/.snapshots
     mount -o ${mountoptions},subvol=@var_log ${root_partition} /mnt/var/log
+    if [[ "${swaptype}" == "file" ]]; then
+        mkdir -p /mnt/.swap
+        mount -o ${mountoptions},subvol=@swap ${root_partition} /mnt/.swap
+        btrfs filesystem mkswapfile --size 32G --uuid clear /mnt/.swap/swapfile
+    fi
 elif [[ "${FS}" == "ext4" ]]; then
     mkfs.ext4 -L "ROOT" $root_partition
     mount -t ext4 $root_partition /mnt
+    if [[ "${swaptype}" == "file" ]];
+        mkdir -p /mnt/.swap
+        mkswap -U clear --size 32G --file /mnt/.swap/swapfile
+    fi
+fi
+
+if [[ "${swaptype}" == "part" ]]; then
+    mkswap $swap_partition
+    swapon $swap_partition
+else
+    swapon /mnt/.swap/swapfile
 fi
 
 mount $sys_partition /mnt/boot

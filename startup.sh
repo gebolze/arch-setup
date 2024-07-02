@@ -107,6 +107,25 @@ EOF
     done
 }
 
+swap() {
+    while : ; do
+        read -p "Do you want a swap partition or file (file|part):" swap
+        case $swap in
+            "file")
+                set_option swaptype file
+                break
+                ;;
+            "part")
+                set_option swaptype part 
+                break
+                ;;
+            *)
+                echo "Wrong option. Try again"
+                ;;
+        esac
+    done
+}
+
 timezone () {
     # Added this from arch wiki https://wiki.archlinux.org/title/System_time
     time_zone="$(curl --fail https://ipapi.co/timezone)"
@@ -169,5 +188,6 @@ EOF
 clear; logo; userinfo
 clear; logo; diskpart
 clear; logo; filesystem
+clear; logo; swap
 clear; logo; timezone
 clear; logo; keymap
