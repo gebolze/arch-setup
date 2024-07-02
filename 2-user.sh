@@ -23,8 +23,8 @@ echo "------------------------------------------------------------------------"
 
 mkdir -p ~/builds
 cd ~/builds
-git clone "https://aur.archlinux.org/rua.git"
-cd rua
+git clone "https://aur.archlinux.org/paru.git"
+cd paru
 makepkg -si --noconfirm
 
 
@@ -38,5 +38,5 @@ do
     [[ "$line" =~ ^\s*$ ]] && continue  # ignore lines that only contain whitespace
 
     echo "Installing: ${line}"
-    rua install ${line}
+    paru -S ${line}
 done
