@@ -19,6 +19,7 @@
   hyprland
   mako
   noto-fonts-emoji
+  polkit-gnome
   ttf-jetbrains-mono-nerd
   waybar
   wl-clipboard
