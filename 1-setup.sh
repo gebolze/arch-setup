@@ -142,9 +142,17 @@ echo "------------------------------------------------------------------------"
 echo "Installing Systemd Bootloader"
 echo "------------------------------------------------------------------------"
 if [[ "${DISK}" =~ "nvme" ]]; then
-    root_partition="${DISK}p3"
+    if [[ "${swaptype}" == "part" ]]; then
+      root_partition="${DISK}p3"
+    else
+      root_partition="${DISK}p2"
+    fi
 else
-    root_partition="${DISK}3"
+    if [[ "${swaptype}" == "part" ]]; then
+      root_partition="${DISK}3"
+    else
+      root_partition="${DISK}2"
+    fi
 fi
 
 bootctl install

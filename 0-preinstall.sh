@@ -50,8 +50,12 @@ sgdisk -a 2048 -o ${DISK}   # new gpt disk 2048 alignment
 
 # create partitions
 sgdisk -n 1::+1G -typecode=1:ef00 --change-name=1:'UEFISYS' ${DISK}
-sgdisk -n 2::+32G  -typecode=2:8200 --change-name=2:'SWAP' ${DISK}
-sgdisk -n 3::-0    -typecode=3:8300 --change-name=3:'ROOT' ${DISK}
+if [[ "${swaptype}" == "part" ]]; then
+  sgdisk -n 2::+32G  -typecode=2:8200 --change-name=2:'SWAP' ${DISK}
+  sgdisk -n 3::-0    -typecode=3:8300 --change-name=3:'ROOT' ${DISK}
+else
+  sgdisk -n 2::-0    -typecode=2:8300 --change-name=2:'ROOT' ${DISK}
+fi
 
 echo "------------------------------------------------------------------------"
 echo "Creating Filesystems"
@@ -59,12 +63,20 @@ echo "------------------------------------------------------------------------"
 
 if [[ "${DISK}" =~ "nvme" ]]; then
     sys_partition=${DISK}p1
-    swap_partition=${DISK}p2
-    root_partition=${DISK}p3
+    if [[ "${swaptype}" == "part" ]]; then
+      swap_partition=${DISK}p2
+      root_partition=${DISK}p3
+    else
+      root_partition=${DISK}p2
+    fi
 else
     sys_partition=${DISK}1
-    swap_partition=${DISK}2
-    root_partition=${DISK}3
+    if [[ "${swaptype}" == "part" ]]; then
+      swap_partition=${DISK}2
+      root_partition=${DISK}3
+    else
+      root_partition=${DISK}2
+    fi
 fi
 
 mkfs.vfat -F32 -n "EFIBOOT" ${sys_partition}
@@ -95,7 +107,7 @@ if [[ "${FS}" == "btrfs" ]]; then
 elif [[ "${FS}" == "ext4" ]]; then
     mkfs.ext4 -L "ROOT" $root_partition
     mount -t ext4 $root_partition /mnt
-    if [[ "${swaptype}" == "file" ]];
+    if [[ "${swaptype}" == "file" ]]; then
         mkdir -p /mnt/.swap
         mkswap -U clear --size 32G --file /mnt/.swap/swapfile
     fi
