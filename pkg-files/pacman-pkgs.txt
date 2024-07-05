@@ -15,7 +15,7 @@
   dosfstools
   exfat-utils
 
-# --- Wayland
+# --- Hyprland
   hyprland
   mako
   noto-fonts-emoji
