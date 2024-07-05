@@ -18,7 +18,7 @@ EOF
 source ~/archmatic/setup.conf
 
 echo "------------------------------------------------------------------------"
-echo "Installing rua AUR package manager"
+echo "Installing paru to as AUR package manager"
 echo "------------------------------------------------------------------------"
 
 mkdir -p ~/builds
