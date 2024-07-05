@@ -51,9 +51,15 @@ hwclock --systohc
 # Temporary allow sudo without password to
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 
-# Add parallel downloading
-sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
+echo "------------------------------------------------------------------------"
+echo "Configuring pacman"
+echo "------------------------------------------------------------------------"
+
+sed -i 's/^#Color/Color/' /etc/pacman.conf
+sed -i '/Color/a ILoveCandy/' /etc/pacman.conf
+sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+sed -i 's/#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
 pacman -Sy --noconfirm
 
 
