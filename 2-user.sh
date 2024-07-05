@@ -40,3 +40,9 @@ do
     echo "Installing: ${line}"
     paru -S ${line}
 done
+
+echo "------------------------------------------------------------------------"
+echo "Installing dotfiles using chezmoi"
+echo "------------------------------------------------------------------------"
+
+chezmoi init --apply gebolze
