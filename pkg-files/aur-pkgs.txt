@@ -1,6 +1,5 @@
 # --- Communication
   slack-desktop
-  webex-bin
 
 # --- Wayland
   swaylock-effects
