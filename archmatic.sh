@@ -25,7 +25,7 @@ arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/archmatic/2-us
 arch-chroot /mnt /root/archmatic/3-post-setup.sh &> ./post-setup.log
 
 tar -cJf archmatic-logs.tar.xz *.log
-cp ./archmatic.logs.tar.xz /mnt/root/archmatic-logs.tar.xz
+cp ./archmatic-logs.tar.xz /mnt/root/archmatic-logs.tar.xz
 
 cat << EOF
 -------------------------------------------------------------------------
