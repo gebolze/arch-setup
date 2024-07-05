@@ -148,6 +148,13 @@ options root=${root_partition} rootflags=subvol=@ nvidia_drm.modeset=1 nvida_drm
 EOF
 
 echo "------------------------------------------------------------------------"
+echo "Configuring the Display Manager"
+echo "------------------------------------------------------------------------"
+pacman -S cake greetd-regreet
+cp -r ./system-config/greetd/ /etc/greetd/
+systemctl enable greetd.service
+
+echo "------------------------------------------------------------------------"
 echo "Enabling weekly filesystem TRIM"
 echo "------------------------------------------------------------------------"
 systemctl enable fstrim.timer
