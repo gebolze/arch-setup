@@ -88,8 +88,6 @@ echo "------------------------------------------------------------------------"
 echo "------------------------------------------------------------------------"
 echo "Installing Graphics Drivers"
 echo "------------------------------------------------------------------------"
-gpu_type=$(lspci)
-if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
     echo "Installing nvidia driver"
     pacman -S nvidia --noconfirm --needed
 
@@ -115,11 +113,6 @@ When=PostTransaction
 NeedsTargets
 Exec=/bin/sh -c 'while read -r trg; do case $trg in linux*) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 EOF
-elif lspci | grep 'VGA' | grep -E "Radeon|AMD"; then
-    pacman -S xf86-video-amdgpu --noconfirm --needed
-elif grep -E "Integrated Graphics Controller|Intel Corporation UHD" <<< ${gpu_type}; then
-    pacman -S libva-intel-driver libvdpau-va-gl vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
-fi
 
 
 echo "------------------------------------------------------------------------"
