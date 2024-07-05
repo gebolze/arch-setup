@@ -79,18 +79,10 @@ echo "${nameofmachine}" > /etc/hostname
 
 
 echo "------------------------------------------------------------------------"
-echo "Installing Microcode"
+echo "Installing AMD Microcode"
 echo "------------------------------------------------------------------------"
-proc_type=$(lscpu)
-if grep -E "GenuineIntel" <<< ${proc_type}; then
-    echo "Installing Intel microcode"
-    pacman -S --noconfirm intel-ucode
-    proc_ucode=intel-ucode.img
-elif grep -E "AuthenticAMD" <<< ${proc_type}; then
-    echo "Installing AMD microcode"
     pacman -S --noconfirm amd-ucode
     proc_ucode=amd-ucode.img
-fi
 
 
 echo "------------------------------------------------------------------------"
