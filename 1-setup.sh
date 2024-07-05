@@ -25,15 +25,6 @@ echo "------------------------------------------------------------------------"
 pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
 
-
-echo "------------------------------------------------------------------------"
-echo "Setting up mirrors for optiomal download"
-echo "------------------------------------------------------------------------"
-
-pacman -S --noconfirm pacman-contrib curl
-pacman -S --noconfirm reflector rsync
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.back
-
 nc=$(grep -c ^processor /proc/cpuinfo)
 echo "------------------------------------------------------------------------"
 echo "You have $nc cores. Changing the makeflags and compression settings"
