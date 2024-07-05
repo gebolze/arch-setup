@@ -42,11 +42,11 @@ echo "------------------------------------------------------------------------"
 pacman -S --noconfirm gptfdisk btrfs-progs
 
 echo "------------------------------------------------------------------------"
-echo "Formatting Disk"
+echo "Creating Partitions on ${DISK}"
 echo "------------------------------------------------------------------------"
 
 sgdisk -Z ${DISK}           # zap all on disk
-sgdisk -a 2048 -o ${DISK}   # new gpt disk 2048 alignment
+sgdisk -a 2048 -o ${DISK}   # new gpt disk with 2048 sector (1MB) alignment
 
 # create partitions
 sgdisk -n 1::+1G -typecode=1:ef00 --change-name=1:'UEFISYS' ${DISK}
