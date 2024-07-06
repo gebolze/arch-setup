@@ -59,3 +59,8 @@
 # --- Themes
   gnome-themes-extra
   papirus-icon-theme
+
+# --- Virtual Machines
+qemu-desktop
+virt-manager
+

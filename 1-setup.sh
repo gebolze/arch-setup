@@ -167,10 +167,17 @@ cp ./system-config/lm_sensors/strix /etc/sensors.d/strix
 cp ./system-config/lm_sensors/sensors.conf /etc/modules-load.d/sensors.conf
 
 echo "------------------------------------------------------------------------"
+echo "Enabling virtual machine support"
+echo "------------------------------------------------------------------------"
+pacman -S qemu-desktop virt-manager
+systemctl enable libvirtd.socket
+
+echo "------------------------------------------------------------------------"
 echo "Adding user"
 echo "------------------------------------------------------------------------"
 if [ $(whoami) = "root" ]; then
     useradd -m -G wheel -s /bin/bash $USERNAME
+    gpasswd -a $USERNAME libvirt
     echo "$USERNAME:$PASSWORD" | chpasswd
     echo "root:$ROOTPASSWORD" | chpasswd
     cp -R /root/archmatic /home/$USERNAME/
