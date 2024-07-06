@@ -1,0 +1,7 @@
+chip "nct6799-*"
+  label fan7 "Pump"
+  label temp6 "T_Sensor"
+
+  ignore intrusion0
+  ignore intrusion1
+  ignore beep_enable

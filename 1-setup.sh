@@ -160,6 +160,13 @@ echo "------------------------------------------------------------------------"
 systemctl enable fstrim.timer
 
 echo "------------------------------------------------------------------------"
+echo "Configuring hardware monitoring"
+echo "------------------------------------------------------------------------"
+pacman -S lm_sensors --no-confirm
+cp ./system-config/lm_sensors/strix /etc/sensors.d/strix
+cp ./system-config/lm_sensors/sensors.conf /etc/modules-load.d/sensors.conf
+
+echo "------------------------------------------------------------------------"
 echo "Adding user"
 echo "------------------------------------------------------------------------"
 if [ $(whoami) = "root" ]; then
