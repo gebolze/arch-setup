@@ -36,7 +36,6 @@ echo "------------------------------------------------------------------------"
 iso=$(curl -4 ifconfig.co/country-iso)
 pacman -Sy --noconfirm pacman-contrib
 
-sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 pacman -S --noconfirm reflector rsync
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
