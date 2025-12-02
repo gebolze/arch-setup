@@ -30,27 +30,11 @@ loadkeys ${KEYMAP}
 echo "  - make font more readable"
 setfont ter-v32n
 
-echo "------------------------------------------------------------------------"
-echo "Setting up mirrors for optimal downloads"
-echo "------------------------------------------------------------------------"
 iso=$(curl -4 ifconfig.co/country-iso)
-pacman -Sy --noconfirm pacman-contrib
-
-pacman -S --noconfirm reflector rsync
-mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-
 echo "------------------------------------------------------------------------"
 echo "Setting up $iso mirrors for optimal downloads"
 echo "------------------------------------------------------------------------"
-
-reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
-mkdir /mnt &>/dev/null
-
-echo "------------------------------------------------------------------------"
-echo "Installing Prerequisites"
-echo "------------------------------------------------------------------------"
-
-pacman -S --noconfirm gptfdisk btrfs-progs
+reflector -a 12 -c $iso --sort rate --save /etc/pacman.d/mirrorlist
 
 echo "------------------------------------------------------------------------"
 echo "Creating Partitions on ${DISK}"
