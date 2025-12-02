@@ -17,13 +17,25 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source setup.conf
 
 echo "------------------------------------------------------------------------"
-echo "Setting up mirrors for optimal downloads"
+echo "Setup local environment"
 echo "------------------------------------------------------------------------"
 
-iso=$(curl -4 ifconfig.co/country-iso)
+echo "  - setting timezone to '${TIMEZONE}' and sync time"
+timedatectl set-timezone ${TIMEZONE}
 timedatectl set-ntp true
-pacman -Sy --noconfirm pacman-contrib terminus-font
-setfont ter-v22b
+
+echo "  - setting keymap to '${KEYMAP}'"
+loadkeys ${KEYMAP}
+
+echo "  - make font more readable"
+setfont ter-v32n
+
+echo "------------------------------------------------------------------------"
+echo "Setting up mirrors for optimal downloads"
+echo "------------------------------------------------------------------------"
+iso=$(curl -4 ifconfig.co/country-iso)
+pacman -Sy --noconfirm pacman-contrib
+
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 pacman -S --noconfirm reflector rsync
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
