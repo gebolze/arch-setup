@@ -35,13 +35,6 @@ echo "------------------------------------------------------------------------"
 echo "Setting up $iso mirrors for optimal downloads"
 echo "------------------------------------------------------------------------"
 reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
-mkdir /mnt &>/dev/null
-
-echo "------------------------------------------------------------------------"
-echo "Installing Prerequisites"
-echo "------------------------------------------------------------------------"
-
-pacman -S --noconfirm gptfdisk btrfs-progs
 
 echo "------------------------------------------------------------------------"
 echo "Creating Partitions on ${DISK}"
