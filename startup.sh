@@ -69,7 +69,7 @@ EOF
         read -p "Is this a ssd? yes/no:" ssd_drive
         case $ssd_drive in
             y|Y|Yes|yes|YES)
-                set_option mountoptions "noatime,compress=zstd,ssd"; break;;
+                set_option mountoptions "noatime,compress=lzo,ssd,discard=async,space_cache=v2"; break;;
             n|N|No|no|NO)
                 set_option mountoptions "noatime,compress=zstd"; break;;
             *)
