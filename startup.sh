@@ -80,7 +80,7 @@ EOF
 
 swap() {
     while : ; do
-        read -p "Do you want a swap partition or file (file|part):" swap
+        read -p "Do you want a swap partition or file (file|part|none):" swap
         case $swap in
             "file")
                 set_option swaptype file
@@ -88,6 +88,10 @@ swap() {
                 ;;
             "part")
                 set_option swaptype part 
+                break
+                ;;
+            "none")
+                set_option swaptype none
                 break
                 ;;
             *)

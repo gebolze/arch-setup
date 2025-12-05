@@ -76,7 +76,7 @@ else
     if [[ "${swaptype}" == "part" ]]; then
       swap_partition=${DISK}2
       root_partition=${DISK}3
-    else
+    elif [[ "${swaptype}" == "file" ]]; then
       root_partition=${DISK}2
     fi
 fi
@@ -104,13 +104,10 @@ if [[ "${swaptype}" == "file" ]]; then
     mkdir -p /mnt/.swap
     mount -o ${mountoptions},subvol=@swap ${root_partition} /mnt/.swap
     btrfs filesystem mkswapfile --size 32G --uuid clear /mnt/.swap/swapfile
-fi
-
-if [[ "${swaptype}" == "part" ]]; then
+    swapon /mnt/.swap/swapfile
+elif [[ "${swaptype}" == "part" ]]; then
     mkswap $swap_partition
     swapon $swap_partition
-else
-    swapon /mnt/.swap/swapfile
 fi
 
 mount $sys_partition /mnt/boot
