@@ -100,6 +100,21 @@ swap() {
         esac
     done
 }
+encryption() {
+    while : ; do
+        read -p "Do you want to encrypt the root partition (yes|no): " encryption
+        case $encryption in
+            y|Y|Yes|yes|YES)
+                set_option encryption 1
+                break;;
+            n|N|No|no|NO)
+                set_option encryption 0
+                break;;
+            *)
+                echo "Wrong option. Try again";;
+        esac
+    done
+}
 
 timezone () {
     # Added this from arch wiki https://wiki.archlinux.org/title/System_time
@@ -163,5 +178,6 @@ EOF
 clear; logo; userinfo
 clear; logo; diskpart
 clear; logo; swap
+clear; logo; encryption
 clear; logo; timezone
 clear; logo; keymap

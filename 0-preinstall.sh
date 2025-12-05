@@ -81,6 +81,17 @@ else
     fi
 fi
 
+# crypt setup
+if [[ "${encryption}" -eq 1 ]]; then
+    echo ""
+    echo "------------------------------------------------------------------------"
+    echo "encrypting ${root_partition} partition"
+    echo "------------------------------------------------------------------------"
+    cryptsetup luksFormat ${root_partition}
+    cryptsetup luksOpen ${root_partition} root
+    root_partition=/dev/mapper/root
+fi
+
 mkfs.fat -F32 -n "EFIBOOT" ${sys_partition}
 mkfs.btrfs -L "ROOT" $root_partition -f
 
