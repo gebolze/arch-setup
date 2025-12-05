@@ -22,8 +22,7 @@ echo "------------------------------------------------------------------------"
 echo "Network setup"
 echo "------------------------------------------------------------------------"
 
-pacman -S networkmanager dhclient --noconfirm --needed
-systemctl enable --now NetworkManager
+systemctl enable systemd-networkd.service
 
 nc=$(grep -c ^processor /proc/cpuinfo)
 echo "------------------------------------------------------------------------"
