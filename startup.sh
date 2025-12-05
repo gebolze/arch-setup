@@ -78,35 +78,6 @@ EOF
     done
 }
 
-filesystem () {
-    cat << EOF
-Please select your file system for both boot and root
-1) btrfs
-2) ext4
-0) exit
-EOF
-
-    while : ; do
-        read filesystem
-        case $filesystem in
-            1)
-                set_option FS btrfs
-                break
-                ;;
-            2)
-                set_option FS ext4
-                break
-                ;;
-            0)
-                exit
-                ;;
-            *)
-                echo "Wrong option. Try again"
-                ;;
-        esac
-    done
-}
-
 swap() {
     while : ; do
         read -p "Do you want a swap partition or file (file|part):" swap
@@ -187,7 +158,6 @@ EOF
 
 clear; logo; userinfo
 clear; logo; diskpart
-clear; logo; filesystem
 clear; logo; swap
 clear; logo; timezone
 clear; logo; keymap
