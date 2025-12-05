@@ -56,8 +56,7 @@ echo "Configuring pacman"
 echo "------------------------------------------------------------------------"
 
 sed -i 's/^#Color/Color/' /etc/pacman.conf
-sed -i '/Color/a ILoveCandy/' /etc/pacman.conf
-sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+sed -i '/Color/a ILoveCandy' /etc/pacman.conf
 sed -i 's/#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
 pacman -Sy --noconfirm
 
