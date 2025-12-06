@@ -93,7 +93,7 @@ echo "------------------------------------------------------------------------"
 echo "Installing Graphics Drivers"
 echo "------------------------------------------------------------------------"
     echo "Installing nvidia driver"
-    pacman -S nvidia --noconfirm --needed
+    pacman -S nvidia-open --noconfirm --needed
 
     echo "Adding nvidia modules to initramfs"
     sed -i 's/MODULES=\(/MODULES=\(nvidia nvidia_modeset nvidia_uvm nvidia_drm/g' /etc/mkinitcpio.conf
