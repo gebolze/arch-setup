@@ -100,6 +100,17 @@ echo "------------------------------------------------------------------------"
     mkinitcpio -P
 
 
+echo "------------------------------------------------------------------------"
+echo "Configuring mkinitcpio"
+echo "------------------------------------------------------------------------"
+if [[ "${encryption}" -eq 1 ]]; then
+    echo "Adding btrfs and usb modules to initramfs"
+    sed -i 's/MODULES=\(/MODULES=\(btrfs usbhid xhci_hcd /g' /etc/mkinitcpio.conf
+
+    echo "Adding sd-encrypt & removing kms hook to initramfs"
+    sed -i 's/HOOKS=(base systemd autodetect microcode modconf kms keyboard keymap sd-vconsole block filesystems fsck)/HOOKS=(base systemd autodetect microcode modconf keyboard keymap sd-vconsole block sd-encrypt filesystems fsck)/' /etc/mkinitcpio.conf
+    mkinitcpio -P
+fi
 
 echo "------------------------------------------------------------------------"
 echo "Installing Systemd Bootloader"
@@ -119,13 +130,24 @@ else
 fi
 
 bootctl install
-cat <<EOF > /boot/loader/entries/arch.conf
+
+if [[ "${encryption}" -eq 1 ]]; then
+    cat <<EOF > /boot/loader/entries/arch.conf
+title Arch Linux
+linux /vmlinuz-linux
+initrd /amd-ucode.img
+initrd /initramfs-linux.img
+options rd.luks.name=$(blkid -s UUID -p value ${root_partition})=root root=/dev/mapper/root rootflags=subvol=@ rw
+EOF
+else
+    cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /${proc_ucode}
 initrd /initramfs-linux.img
-options root=${root_partition} rootflags=subvol=@ nvidia_drm.modeset=1 nvida_drm.fbdev=1 rw
+options root=${root_partition} rootflags=subvol=@ rw
 EOF
+fi
 
 echo "------------------------------------------------------------------------"
 echo "Configuring the Display Manager"
