@@ -91,8 +91,8 @@ mkfs.btrfs -L "ROOT" $root_partition -f
 mount -t btrfs $root_partition /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@.snapshots
-btrfs subvolume create /mnt/@var_log
+btrfs subvolume create /mnt/@log
+btrfs subvolume create /mnt/@pkg
 if [[ "${swaptype}" == "file" ]]; then
     btrfs subvolume create /mnt/@swap
 fi
@@ -100,10 +100,10 @@ fi
 umount /mnt
 
 mount -o ${mountoptions},subvol=@ ${root_partition} /mnt
-mkdir -p /mnt/{boot,home,.snapshots,var/log}
+mkdir -p /mnt/{boot,home,var/log,/var/cache/pacman/pkg}
 mount -o ${mountoptions},subvol=@home ${root_partition} /mnt/home
-mount -o ${mountoptions},subvol=@.snapshots ${root_partition} /mnt/.snapshots
-mount -o ${mountoptions},subvol=@var_log ${root_partition} /mnt/var/log
+mount -o ${mountoptions},subvol=@log ${root_partition} /mnt/var/log
+mount -o ${mountoptions},subvol=@pkg ${root_partition} /mnt/var/cache/pacman/log
 if [[ "${swaptype}" == "file" ]]; then
     mkdir -p /mnt/.swap
     mount -o ${mountoptions},subvol=@swap ${root_partition} /mnt/.swap
