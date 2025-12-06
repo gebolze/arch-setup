@@ -54,7 +54,7 @@ pacman -Sy --noconfirm
 echo "------------------------------------------------------------------------"
 echo "Installing required system packages"
 echo "------------------------------------------------------------------------"
-pacman -S --noconfirm amd-ucode btrfs-progs
+pacman -S --noconfirm amd-ucode btrfs-progs sudo
 
 echo "------------------------------------------------------------------------"
 echo "Setting hostname"
@@ -111,7 +111,7 @@ title Arch Linux
 linux /vmlinuz-linux
 initrd /amd-ucode.img
 initrd /initramfs-linux.img
-options rd.luks.name=$(blkid -s UUID -p value ${root_partition})=root root=/dev/mapper/root rootflags=subvol=@ rw
+options rd.luks.name=$(blkid -s UUID -o value ${root_partition})=root root=/dev/mapper/root rootflags=subvol=@ rw
 EOF
 else
     cat <<EOF > /boot/loader/entries/arch.conf
@@ -123,6 +123,11 @@ options root=${root_partition} rootflags=subvol=@ rw
 EOF
 fi
 
+
+echo "------------------------------------------------------------------------"
+echo "configuring sudo permissions"
+echo "------------------------------------------------------------------------"
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 echo "------------------------------------------------------------------------"
 echo "configuring users"
@@ -137,5 +142,5 @@ echo "------------------------------------------------------------------------"
 echo "moving scripts to user home"
 echo "------------------------------------------------------------------------"
 
-mv -R /root/archmatic /home/$USERNAME/
+mv /root/archmatic /home/$USERNAME/
 chown -R $USERNAME: /home/$USERNAME/archmatic
