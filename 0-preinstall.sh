@@ -100,10 +100,10 @@ fi
 umount /mnt
 
 mount -o ${mountoptions},subvol=@ ${root_partition} /mnt
-mkdir -p /mnt/{boot,home,var/log,/var/cache/pacman/pkg}
+mkdir -p /mnt/{boot,home,var/log,var/cache/pacman/pkg}
 mount -o ${mountoptions},subvol=@home ${root_partition} /mnt/home
 mount -o ${mountoptions},subvol=@log ${root_partition} /mnt/var/log
-mount -o ${mountoptions},subvol=@pkg ${root_partition} /mnt/var/cache/pacman/log
+mount -o ${mountoptions},subvol=@pkg ${root_partition} /mnt/var/cache/pacman/pkg
 if [[ "${swaptype}" == "file" ]]; then
     mkdir -p /mnt/.swap
     mount -o ${mountoptions},subvol=@swap ${root_partition} /mnt/.swap

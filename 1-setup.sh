@@ -105,6 +105,11 @@ fi
 
 bootctl install
 
+cat << EOF > /boot/loader/loader.conf
+timeout 3
+console-mode max
+EOF
+
 if [[ "${encryption}" -eq 1 ]]; then
     cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
