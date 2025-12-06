@@ -21,11 +21,8 @@ source $SCRIPT_DIR/setup.conf
 bash 0-preinstall.sh &> ./preinstall.log
 
 arch-chroot /mnt /root/archmatic/1-setup.sh &> ./setup.log
-arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/archmatic/2-user.sh &> ./user.log
-arch-chroot /mnt /root/archmatic/3-post-setup.sh &> ./post-setup.log
-
 tar -cJf archmatic-logs.tar.xz *.log
-cp ./archmatic-logs.tar.xz /mnt/root/archmatic-logs.tar.xz
+cp ./archmatic-logs.tar.xz /mnt/home/${USERNAME}/archmatic-logs.tar.xz
 
 cat << EOF
 -------------------------------------------------------------------------

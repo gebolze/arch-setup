@@ -18,12 +18,6 @@ EOF
 source /root/archmatic/setup.conf
 
 
-echo "------------------------------------------------------------------------"
-echo "Network setup"
-echo "------------------------------------------------------------------------"
-
-systemctl enable systemd-networkd.service
-
 nc=$(grep -c ^processor /proc/cpuinfo)
 echo "------------------------------------------------------------------------"
 echo "You have $nc cores. Changing the makeflags and compression settings"
@@ -47,10 +41,6 @@ echo "KEYMAP=${KEYMAP}" > /etc/vconsole.conf
 ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 hwclock --systohc
 
-# Temporary allow sudo without password to
-sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
-
-
 echo "------------------------------------------------------------------------"
 echo "Configuring pacman"
 echo "------------------------------------------------------------------------"
@@ -62,18 +52,9 @@ pacman -Sy --noconfirm
 
 
 echo "------------------------------------------------------------------------"
-echo "Installing Base System"
+echo "Installing required system packages"
 echo "------------------------------------------------------------------------"
-
-cat /root/archmatic/pkg-files/pacman-pkgs.txt | while read line
-do
-    [[ "$line" =~ ^\#.*$ ]] && continue # ignore lines start with a #
-    [[ "$line" =~ ^\s*$ ]] && continue  # ignore lines that only contain whitespace
-
-    echo "Installing: ${line}"
-    sudo pacman -S --noconfirm --needed ${line}
-done
-
+pacman -S --noconfirm amd-ucode btrfs-progs
 
 echo "------------------------------------------------------------------------"
 echo "Setting hostname"
@@ -83,20 +64,13 @@ echo "${nameofmachine}" > /etc/hostname
 
 
 echo "------------------------------------------------------------------------"
-echo "Installing AMD Microcode"
-echo "------------------------------------------------------------------------"
-    pacman -S --noconfirm amd-ucode
-    proc_ucode=amd-ucode.img
-
-
-echo "------------------------------------------------------------------------"
 echo "Installing Graphics Drivers"
 echo "------------------------------------------------------------------------"
     echo "Installing nvidia driver"
     pacman -S nvidia-open --noconfirm --needed
 
     echo "Adding nvidia modules to initramfs"
-    sed -i 's/MODULES=\(/MODULES=\(nvidia nvidia_modeset nvidia_uvm nvidia_drm/g' /etc/mkinitcpio.conf
+    sed -i 's/MODULES=(/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm /g' /etc/mkinitcpio.conf
     mkinitcpio -P
 
 
@@ -105,7 +79,7 @@ echo "Configuring mkinitcpio"
 echo "------------------------------------------------------------------------"
 if [[ "${encryption}" -eq 1 ]]; then
     echo "Adding btrfs and usb modules to initramfs"
-    sed -i 's/MODULES=\(/MODULES=\(btrfs usbhid xhci_hcd /g' /etc/mkinitcpio.conf
+    sed -i 's/MODULES=(/MODULES=(btrfs usbhid xhci_hcd /g' /etc/mkinitcpio.conf
 
     echo "Adding sd-encrypt & removing kms hook to initramfs"
     sed -i 's/HOOKS=(base systemd autodetect microcode modconf kms keyboard keymap sd-vconsole block filesystems fsck)/HOOKS=(base systemd autodetect microcode modconf keyboard keymap sd-vconsole block sd-encrypt filesystems fsck)/' /etc/mkinitcpio.conf
@@ -143,45 +117,25 @@ else
     cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
-initrd /${proc_ucode}
+initrd /amd-ucode.img
 initrd /initramfs-linux.img
 options root=${root_partition} rootflags=subvol=@ rw
 EOF
 fi
 
-echo "------------------------------------------------------------------------"
-echo "Configuring the Display Manager"
-echo "------------------------------------------------------------------------"
-pacman -S cake greetd-regreet
-cp -r ./system-config/greetd/ /etc/greetd/
-systemctl enable greetd.service
 
 echo "------------------------------------------------------------------------"
-echo "Enabling weekly filesystem TRIM"
+echo "configuring users"
 echo "------------------------------------------------------------------------"
-systemctl enable fstrim.timer
+
+echo "root:$ROOTPASSWORD" | chpasswd
+useradd -m -G wheel -s /bin/bash $USERNAME
+echo "$USERNAME:$PASSWORD" | chpasswd
+
 
 echo "------------------------------------------------------------------------"
-echo "Configuring hardware monitoring"
+echo "moving scripts to user home"
 echo "------------------------------------------------------------------------"
-pacman -S lm_sensors --no-confirm
-cp ./system-config/lm_sensors/strix /etc/sensors.d/strix
-cp ./system-config/lm_sensors/sensors.conf /etc/modules-load.d/sensors.conf
 
-echo "------------------------------------------------------------------------"
-echo "Enabling virtual machine support"
-echo "------------------------------------------------------------------------"
-pacman -S qemu-desktop virt-manager
-systemctl enable libvirtd.socket
-
-echo "------------------------------------------------------------------------"
-echo "Adding user"
-echo "------------------------------------------------------------------------"
-if [ $(whoami) = "root" ]; then
-    useradd -m -G wheel -s /bin/bash $USERNAME
-    gpasswd -a $USERNAME libvirt
-    echo "$USERNAME:$PASSWORD" | chpasswd
-    echo "root:$ROOTPASSWORD" | chpasswd
-    cp -R /root/archmatic /home/$USERNAME/
-    chown -R $USERNAME: /home/$USERNAME/archmatic
-fi
+mv -R /root/archmatic /home/$USERNAME/
+chown -R $USERNAME: /home/$USERNAME/archmatic
