@@ -55,6 +55,15 @@ echo "Enabling weekly filesystem TRIM"
 echo "------------------------------------------------------------------------"
 systemctl enable fstrim.timer
 
+
+echo "------------------------------------------------------------------------"
+echo "Configuring the plymouth"
+echo "------------------------------------------------------------------------"
+pacman -S --no-confirm plymouth
+sed -i "s/ rw/ quiet splash rw/g" /boot/loader/entries/arch.conf
+sed -i "s/base systemd /base systemd plymouth/g" /etc/mkinitcpio.conf
+mkinitcpio -P
+
 echo "------------------------------------------------------------------------"
 echo "Configuring hardware monitoring"
 echo "------------------------------------------------------------------------"
