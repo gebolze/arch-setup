@@ -46,7 +46,7 @@ done
 echo "------------------------------------------------------------------------"
 echo "Configuring the Display Manager"
 echo "------------------------------------------------------------------------"
-pacman -S cake greetd-regreet
+pacman -S --no-confirm cage greetd-regreet polkit
 cp -r ./system-config/greetd/ /etc/greetd/
 systemctl enable greetd.service
 
