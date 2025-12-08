@@ -64,6 +64,17 @@ sed -i "s/ rw/ quiet splash rw/g" /boot/loader/entries/arch.conf
 sed -i "s/base systemd /base systemd plymouth/g" /etc/mkinitcpio.conf
 mkinitcpio -P
 
+
+echo "------------------------------------------------------------------------"
+echo "Configuring snapper"
+echo "------------------------------------------------------------------------"
+pacman -S -no-confirm snapper snap-pac
+snapper -c root create-config /
+snapper -c home create-config /home
+systemctl enable snapper-timeline.timer
+systemctl enable snapper-cleanup.timer
+
+
 echo "------------------------------------------------------------------------"
 echo "Configuring hardware monitoring"
 echo "------------------------------------------------------------------------"
